@@ -12,11 +12,21 @@
       <br><br>
       <button @click="addActivity">Tambah</button>
     </div>
+    
   
     <div class="cont-isi">
-      <button @click="showAll" class="btn-all">Semua Kegiatan</button>
-        <button @click="showIncomplete" class="btn-incompt">Kegiatan Belum Selesai</button>
-        <button @click="showCompleted" class="btn-compt">Kegiatan Selesai</button>
+      <input type="text" v-model="searchQuery" placeholder="Cari kegiatan..."> 
+      <br><br>
+        <div class="dropdown">
+          <button class="dropbtn" @click="toggleDropdown">
+            Daily Routine <span class="arrow">&#9660;</span>
+          </button>
+          <div class="dropdown-content">
+            <button @click="setFilter('all')" :class="{ 'active': filter === 'all' }">Semua Kegiatan</button>
+            <button @click="setFilter('incomplete')" :class="{ 'active': filter === 'incomplete' }">Kegiatan Belum Selesai</button>
+            <button @click="setFilter('completed')" :class="{ 'active': filter === 'completed' }">Kegiatan Selesai</button>
+          </div>
+        </div>
         <br><br>
 
         <table class="activity-table">
@@ -56,61 +66,70 @@
         </table>
     </div>
   </div>
-  
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        activities: [],
-        newActivity: '',
-        newActivitySurat: '',
-        newActivityDate: '',
-        newActivityTime: '',
-        filter: 'all'
-      };
-    },
-    computed: {
-      filteredActivities() {
-        if (this.filter === 'incomplete') {
-          return this.activities.filter(activity => !activity.completed);
-        } else if (this.filter === 'completed') {
-          return this.activities.filter(activity => activity.completed);
-        } else {
-          return this.activities;
-        }
-      }
-    },
-    methods: {
-      addActivity() {
-  if (this.newActivity.trim() !== '' && this.newActivitySurat.trim() !== '') {
-    this.activities.push({
-      newActivity: this.newActivity,
-      newActivitySurat: this.newActivitySurat,
-      newActivityDate: this.newActivityDate,
-      newActivityTime: this.newActivityTime,
-      completed: false,
-    });
-    this.newActivity = '';
-    this.newActivitySurat = '';
-    this.newActivityDate = '';
-    this.newActivityTime = '';
-  }
-},
+</template>
 
-      cancelActivity(index) {
-        this.activities.splice(index, 1);
-      },
-      showAll() {
-        this.filter = 'all';
-      },
-      showIncomplete() {
-        this.filter = 'incomplete';
-      },
-      showCompleted() {
-        this.filter = 'completed';
+<script>
+export default {
+  data() {
+    return {
+      activities: [],
+      newActivity: '',
+      newActivitySurat: '',
+      newActivityDate: '',
+      newActivityTime: '',
+      searchQuery: '',
+      filter: 'all'
+    };
+  },
+  computed: {
+    filteredActivities() {
+      let filtered = this.activities;
+
+      // Filter based on search query
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase();
+        filtered = filtered.filter(activity => {
+          return (
+            activity.newActivity.toLowerCase().includes(query) ||
+            activity.newActivitySurat.toLowerCase().includes(query) ||
+            activity.newActivityDate.toLowerCase().includes(query) ||
+            activity.newActivityTime.toLowerCase().includes(query)
+          );
+        });
       }
+
+      // Apply status filter
+      if (this.filter === 'incomplete') {
+        filtered = filtered.filter(activity => !activity.completed);
+      } else if (this.filter === 'completed') {
+        filtered = filtered.filter(activity => activity.completed);
+      }
+
+      return filtered;
     }
-  };
+  },
+  methods: {
+    addActivity() {
+      if (this.newActivity.trim() !== '' && this.newActivitySurat.trim() !== '') {
+        this.activities.push({
+          newActivity: this.newActivity,
+          newActivitySurat: this.newActivitySurat,
+          newActivityDate: this.newActivityDate,
+          newActivityTime: this.newActivityTime,
+          completed: false,
+        });
+        this.newActivity = '';
+        this.newActivitySurat = '';
+        this.newActivityDate = '';
+        this.newActivityTime = '';
+      }
+    },
+    cancelActivity(index) {
+      this.activities.splice(index, 1);
+    },
+    setFilter(filter) {
+      this.filter = filter;
+    }
+  }
+};
 </script>
