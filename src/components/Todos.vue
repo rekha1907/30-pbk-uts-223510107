@@ -41,27 +41,26 @@
           </thead>
           <tbody>
             <tr v-for="(activity, index) in filteredActivities" :key="index">
-              <td>
-                <input type="checkbox" v-model="activity.completed">
-                <span :class="{ 'completed': activity.completed }">{{ activity.newActivity }}</span>
-              </td>
-              <td>
-                <span :class="{ 'completed': activity.completed }">{{ activity.newActivitySurat }}</span>
-              </td>
-              <td>
-                <span :class="{ 'completed': activity.completed }">{{ activity.newActivityDate }}</span>
-              </td>
-              <td>
-                <span :class="{ 'completed': activity.completed }">{{ activity.newActivityTime }}</span>
-              </td>
-              <td>
-                <span :class="{ 'completed': activity.completed }">{{ activity.completed ? 'Selesai' : 'Belum Selesai' }}</span>
-              </td>
-              <td>
-                <button @click="editActivity(index)" class="edit-button">Edit</button>
-                <button @click="cancelActivity(index)" class="cancel-button">Hapus</button>
-              </td>
-            </tr>
+                <td>
+                    <span :class="{ 'completed': activity.completed }">{{ activity.newActivity }}</span>
+                </td>
+                <td>
+                    <span :class="{ 'completed': activity.completed }">{{ activity.newActivitySurat }}</span>
+                </td>
+                <td>
+                    <span :class="{ 'completed': activity.completed }">{{ activity.newActivityDate }}</span>
+                </td>
+                <td>
+                    <span :class="{ 'completed': activity.completed }">{{ activity.newActivityTime }}</span>
+                </td>
+                <td>
+                    <span :class="{ 'completed': activity.completed }">{{ activity.completed ? 'Selesai' : 'Belum Selesai' }}</span>
+                </td>
+                <td>
+                    <button @click="editActivity(index)" class="edit-button">Edit</button>
+                    <button @click="cancelActivity(index)" class="cancel-button">Hapus</button>
+                </td>
+                </tr>
           </tbody>
         </table>
       </div>
