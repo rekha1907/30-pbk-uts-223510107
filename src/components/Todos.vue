@@ -29,16 +29,17 @@
         <br><br>
   
         <table class="activity-table">
-          <thead>
-            <tr>
-              <th>Waktu Sholat</th>
-              <th>Surat</th>
-              <th>Tanggal</th>
-              <th>Jam</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
+            <thead>
+    <tr>
+        <th>Waktu Sholat</th>
+        <th>Surat</th>
+        <th>Tanggal</th>
+        <th>Jam</th>
+        <th>Status</th>
+        <th>Aksi</th>
+    </tr>
+</thead>
+
           <tbody>
             <tr v-for="(activity, index) in filteredActivities" :key="index">
                 <td>
