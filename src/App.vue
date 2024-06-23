@@ -82,6 +82,7 @@ export default {
 </script>
 
 <style>
+
 .bg {
   background-color: rgb(168, 147, 70);
 }
