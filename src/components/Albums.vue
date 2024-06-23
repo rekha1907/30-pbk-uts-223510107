@@ -29,7 +29,7 @@
     </q-card>
 
     <q-banner v-else class="q-mt-md banner">
-      No photos to display.
+      Silahkan pilih album id yang ingin dilihat
     </q-banner>
 
     <q-dialog v-model="dialogVisible" class="photo-dialog">
