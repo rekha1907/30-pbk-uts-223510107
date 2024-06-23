@@ -2,7 +2,7 @@
   <q-page>
     <q-form @submit.prevent="fetchAlbumPhotos" class="q-gutter-md">
       <q-input v-model="albumId" label="Enter Album ID" type="number" outlined />
-      <q-btn type="submit" label="Fetch Photos" class="bg" />
+      <q-btn type="submit" label="Lihat Foto" class="bg" />
     </q-form>
 
     <q-card v-if="loading" class="q-mt-md">
